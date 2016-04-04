@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.cloudfoundry.appcloudserver.classPathProvider/Cloud Foundry (Runtime) v1.0"/>
+	<classpathentry kind="lib" path="dep-jar/com.ibm.ws.javaee.jaxrs.1.1_1.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="E:/Project/Blue mix project/JSON4J.jar"/>
+	<classpathentry kind="lib" path="E:/Project/Blue mix project/nosqljson.jar"/>
+	<classpathentry kind="lib" path="E:/Project/Blue mix project/db2jcc4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raja/workspace/Bluemix/BlueMixAppJava/dep-jar/com.ibm.ws.javaee.persistence.2.0_1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raja/workspace/Bluemix/BlueMixAppJava/dep-jar/com.ibm.ws.javaee.transaction.1.1_1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raja/workspace/Bluemix/BlueMixAppJava/dep-jar/eventfulapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raja/workspace/Bluemix/BlueMixAppJava/dep-jar/apache-httpcomponents-httpcore.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Raja/workspace/Bluemix/BlueMixAppJava/dep-jar/httpclient-4.0.3.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

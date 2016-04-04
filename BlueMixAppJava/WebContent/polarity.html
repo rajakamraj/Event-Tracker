@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sentiment</title>
+
+	<!-- css -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/fancybox/jquery.fancybox.css" rel="stylesheet">
+	<link href="css/flexslider.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
+	
+	
+	<!-- Theme skin -->
+	<link href="skins/default.css" rel="stylesheet" />
+
+    <!-- javascript -->
+
+    <script src="js/jquery.js"></script>
+	<script src="js/jquery-1.11.2.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.fancybox-media.js"></script>
+	<script src="js/google-code-prettify/prettify.js"></script>
+	<script src="js/portfolio/jquery.quicksand.js"></script>
+	<script src="js/portfolio/setting.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/animate.js"></script>
+	<script src="js/custom.js"></script>
+    
+    <script type="text/javascript">
+		$(function(){
+			$.ajax({
+    			url: "header.html",
+    			success: function (data) { $('#wrapper').prepend(data);
+					$('.navbar-nav li.active').removeClass("active");
+					$("#polarity").addClass("active"); 
+					},
+    			dataType: 'html'
+	  		});
+			
+			$.ajax({
+    			url: "footer.html",
+    			success: function (data) { $('footer').append(data); },
+    			dataType: 'html'
+	  		});
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="lefthalf">
+		<section class="callaction">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="big-cta">
+							<div class="cta-text">
+								<h2><span>Eventile</span> - Search your Event</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section id="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4" >
+						<h4 class="heading" style="float:right;">Enter Event Name</h4>
+					</div>
+					
+					<div class="col-lg-4">
+						<input type="text" name="tweetquery" id="tweetquery" /> 
+					</div>
+				
+					<div class="col-lg-4">
+						<input type="submit" value="Submit" name="eventSubmit" id="eventSubmit" onclick="countTweets()"/> 
+					</div>
+					
+				</div>	
+			</div>
+		</section>
+		<section id="number_of_tweets">
+			<div class="container">
+			<table id='twitterinfo'>
+					<tr>
+						<td id='numtweets'>
+							<br/>No tweets selected...<br/><br/>
+						</td>
+					</tr>
+				</table>
+			</div>
+				
+		</section>
+		
+		<section id="analysis">
+			<div class="container">
+			<div class="col-lg-1">
+				<input type="submit" value="Start Twitter Analysis" name="startanalysis" id="startanalysis" onclick="startAnalysis()"/> 
+			</div>
+			</div>
+		</section>
+		<section id='progress' style='width: 100%; display: none;'>
+			<progress class='loadbutton' max='1.0' value='0.0'></progress>
+			<p>Not loaded...</p>
+		</section>
+		<section id='log'>
+		</section>
+	</div>
+		<div style='display:none'>
+		
+			
+			<section>
+				<table id='columns' width='90%' style='font-size: 75%; border: 1; display: none'>
+					<thead><tr><td width='5%'></td><td max-width='20%'>column</td><td min-width='25%'>type</td><td width='50%'>twitter tag</td></tr></thead>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgId'></input></td><td>VARCHAR(128)</td><td>message.id</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgType'></input></td><td>VARCHAR(128)</td><td>message.verb</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgPostedTime'></input></td><td>TIMESTAMP</td><td>message.postedTime</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgBody'></input></td><td>VARCHAR(2048)</td><td>message.body</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgHashtags'></input></td><td>VARCHAR(2048)</td><td>message.twitter_entities.hashtags</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgCoordType'></input></td><td>VARCHAR(128)</td><td>message.gnip.profileLocations.geo.type</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgCoordinates'></input></td><td>VARCHAR(2048)</td><td>message.gnip.profileLocations.geo.coordinates</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorCountry'></input></td><td>VARCHAR(128)</td><td>cde.author.location.country</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorState'></input></td><td>VARCHAR(128)</td><td>cde.author.location.state</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorCity'></input></td><td>VARCHAR(128)</td><td>cde.author.location.city</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorGender'></input></td><td>VARCHAR(128)</td><td>cde.author.gender</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaSentiment'></input></td><td>VARCHAR(128)</td><td>cde.content.sentiment.polarity</td></tr>
+<!--					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%' onkeyup='checkColumns()' value='generatorDisplayName'></input></td><td>VARCHAR(128)</td><td>message.generator.displayName</td></tr>-->
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userId'></input></td><td>VARCHAR(128)</td><td>message.actor.id</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userDisplayName'></input></td><td>VARCHAR(128)</td><td>message.actor.displayName</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userPreferredUsername'></input></td><td>VARCHAR(128)</td><td>message.actor.preferredUsername</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userLink'></input></td><td>VARCHAR(256)</td><td>message.actor.links.href</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userLocation'></input></td><td>VARCHAR(128)</td><td>message.actor.location.displayName</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userUtcOffset'></input></td><td>VARCHAR(128)</td><td>message.actor.utcOffset</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userLanguage'></input></td><td>VARCHAR(128)</td><td>message.actor.languages</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userFollowersCount'></input></td><td>INTEGER</td><td>message.actor.followersCount</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userFriendsCount'></input></td><td>INTEGER</td><td>message.actor.friendsCount</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userListedCount'></input></td><td>INTEGER</td><td>message.actor.listedCount</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userStatusesCount'></input></td><td>INTEGER</td><td>message.actor.statusesCount</td></tr>
+<!--					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%' onkeyup='checkColumns()' value='userVerified'></input></td><td>VARCHAR(5)</td><td>message.actor.verified</td></tr>-->
+				</table>
+			</section>
+			</div>
+			<div class="righthalf">
+			<section id="visualization">
+			<h1>Visualization section</h1>
+			<div id="vis"></div>
+			</section>
+			</div>
+		</div>
+		<script type="text/javascript" src="index.js"></script>
+		<script src="http://www.d3plus.org/js/d3.js"></script>
+<script src="http://www.d3plus.org/js/d3plus.js"></script>
+</body>
+</html>

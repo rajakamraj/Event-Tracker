@@ -1,0 +1,634 @@
+`<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventile</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="css/local.css" />-->
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+     <script type="text/javascript" src="js/modal-loading/modal-loading.js"></script>
+
+    <script data-dojo-config="async: false"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/shieldui-all.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css" />
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+	
+	<!-- Map -->
+      <link rel="shortcut icon" href="//esri.github.io/quickstart-map-js/images/favicon.ico">
+      <!-- ArcGIS API for JavaScript CSS-->
+      <!--<link rel="stylesheet" href="//js.arcgis.com/3.10/js/esri/css/esri.css">-->
+      <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+      <!-- Web Framework CSS - Bootstrap (getbootstrap.com) and Bootstrap-map-js (github.com/esri/bootstrap-map-js) -->
+      <link rel="stylesheet" href="//esri.github.io/bootstrap-map-js/src/css/bootstrapmap.css">
+      
+      	<script type="text/javascript" src="index.js"></script>
+    	<script src="http://www.d3plus.org/js/d3.js"></script>
+    	<script src="http://www.d3plus.org/js/d3plus.js"></script>
+    	<script type="text/javascript" src="https://cdn.datatables.net/s/dt/dt-1.10.10/datatables.min.js"></script>
+      <!-- ArcGIS API for JavaScript library references -->
+      <!--<script src="//js.arcgis.com/3.10"></script>-->
+       <script   src="http://js.arcgis.com/3.14/"></script>
+      <!-- Terraformer reference -->
+      <script src="./vendor/terraformer/terraformer.min.js"></script>
+      <script src="./vendor/terraformer-arcgis-parser/terraformer-arcgis-parser.min.js"></script>
+	
+</head>
+
+<body id="main" class="hold-transition skin-blue sidebar-mini">
+
+	<div class="page-load">
+        <img src="images/triangle.gif"  /><h1>Enhancements in progress.</h1>
+    </div>
+    <div id="wrapper">
+	<!-- HEADER ---------------------------------------------------------------------------------------------->
+        <header class="main-header">
+            <a href="index2.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Event</b>TRACKER</span>
+            </a>
+
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a  class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                
+            </nav>
+        </header>
+		
+		<!-- END OF HEADER -------------------------------------------------------------------------------->
+
+		<!-- BEGINNING OF CAROUSAL ------------------------------------------------------------------------>
+        <div id="bg-fade-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="slide1"></div>
+                </div>
+                <div class="item">
+                    <div class="slide2"></div>
+                </div>
+                <div class="item">
+                    <div class="slide3"></div>
+                </div>
+            </div>
+            <!-- .carousel-inner -->
+            <div class="container carousel-overlay text-center">
+                <h1 style="color:white"><b>Get Popular events at your location</b></h1>
+                
+                <form>
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="input-group input-group-lg">
+                    
+                            <!--<span class="input-group-addon">Search</span>-->
+                        </div>
+                    </div>
+					
+                </form>
+				  <button type="button" id="searchButton" class="btn btn-info btn-lg" >Search</button>
+        
+                <!--<a class="btn btn-lg btn-success fp-buttons" href="#">
+                    <span class="fa fa-check"></span> Sign Up
+                </a>-->
+            </div>
+        </div>
+        <!-- .carousel -->
+        <!-- END OF CAROUSAL ----------------------------------------------------------------------->
+		
+        <br></br>
+        <div id="page-wrapper">
+            <div class="row">
+				<!--<div class="col-sm-12" style="background-color:red;">-->
+			
+			<!-- START OF PANEL BOX AND CHART BOX ROW --------------------------------------------->
+                <div class="color1">
+                    <div class="col-lg-4">
+                        <div class="panel with-nav-tabs panel-primary">
+						
+						<!-- START OF PANEL HEADING ----------------------------------------------->
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs">
+                                    <!--<h3 class="panel-title"><i class="fa fa-clock-o"></i>Tweet Activity</h3>
+								<h3 class="panel-title"><i class="fa fa-clock-o"></i>Live Tweets</h3>-->
+                                    <li class="active"><a href="#tab1primary" data-toggle="tab">Popular Events</a>
+                                    </li>
+                                    <li><a href="#tab2primary" data-toggle="tab">Live Tweets</a>
+                                    </li>
+                                    <li><a href="#tab3primary" data-toggle="tab">Sentiment</a>
+                                    </li>
+                                </ul>
+                            </div>
+							
+						<!-- END OF PANEL HEADING ------------------------------------------------->
+						
+						<!-- START OF PANEL BODY -------------------------------------------------->
+                            <div class="panel-body">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab1primary" style="overflow:hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                    <table id="tableCheck"  class="table table-striped table-bordered">
+										<thead>
+										<tr><th>s.no</th><th>Event Name</th><th>Description</th></tr>
+										</thead>
+										
+										</table></div>
+                                    <div class="tab-pane fade" id="tab2primary">
+                                        <a class="twitter-timeline" href="https://twitter.com/hashtag/allstars" data-widget-id="664590963881484288">#allstars Tweets</a>
+                                        <script>
+                                            ! function(d, s, id) {
+                                                var js, fjs = d.getElementsByTagName(s)[0],
+                                                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                                                if (!d.getElementById(id)) {
+                                                    js = d.createElement(s);
+                                                    js.id = id;
+                                                    js.src = p + "://platform.twitter.com/widgets.js";
+                                                    fjs.parentNode.insertBefore(js, fjs);
+                                                }
+                                            }(document, "script", "twitter-wjs");
+                                        </script>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab3primary">
+                                        <div class="row alert-success">
+                                            <div class="col-xs-5">
+                                                <i class="fa fa-thumbs-o-up fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-5 text-right">
+                                                <p class="alerts-heading">343</p>
+                                                <p class="alerts-text">New Orders</p>
+                                            </div>
+                                        </div>
+                                        <div class="row alert-success">
+                                            <div class="col-xs-5">
+                                                <i class="fa fa-thumbs-o-up fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-5 text-right">
+                                                <p class="alerts-heading">1256</p>
+                                                <p class="alerts-text">Registrations</p>
+                                            </div>
+                                        </div>
+                                        <div class="row alert-danger">
+                                            <div class="col-xs-5">
+                                                <i class="fa fa-thumbs-o-down fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-5 text-right">
+                                                <p class="alerts-heading">4</p>
+                                                <p class="alerts-text">Errors</p>
+                                            </div>
+                                        </div>
+                                        <div class="row alert-success">
+                                            <div class="col-xs-5">
+                                                <i class="fa fa-thumbs-o-up fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-5 text-right">
+                                                <p class="alerts-heading">11</p>
+                                                <p class="alerts-text">Mentions</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						<!-- END OF PANEL BODY ------------------------------------------------->
+                        </div>					
+                    </div>
+				<!-- END OF PANEL BOX ---------------------------------------------------------->
+
+                    <div class="col-lg-8">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i>
+								Chart
+								</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="vis" style="height:500px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<!-- END OF CHART ROW ------------------------------------------------------------------->
+		
+		<!-- START OF MAP ROW ------------------------------------------------------------------->
+            <!--<div class="container">-->
+            <div class="row">
+            <div class="col-lg-4">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h3 class="panel-title">ArcGIS GeoJSON Layer</h3>
+                     <button id="chevron" class="btn btn-primary btn-xs btn-absolute">
+                     <span class="glyphicon glyphicon-chevron-up"></span>
+                     </button>
+                  </div>
+                  <div class="panel-body collapse in">
+                     <p>Load GeoJSON into the map as a layer. <a href="https://github.com/esri/Terraformer">Terraformer</a> is used to convert GeoJSON to ArcGIS JSON.</p>
+                     <div class="form text-left">
+                        <div class="form-group">
+                           <label class="control-label">Sample Data</label>
+                           <select class="form-control" id="selGeoJson">
+							  <option value="./data/sample1.json">GeoJSON File - Sample</option>
+                           </select>
+                        </div>
+                        <div class="form-group">
+                           <label class="control-label">Your Data <a target="_blank" href="https://developers.arcgis.com/javascript/jshelp/ags_proxy.html">(URL/File/CORS Server)</a></label>
+                           <div class="input-group">
+                              <input type="text" class="form-control" id="geoJsonUrl" value="./data/sample1.json" placeholder="./data/sample1.json">
+                              <span class="input-group-btn">
+                              <button id="btnAdd" class="btn btn-success" type="button">Load</button>
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group text-center">
+                           <button id="btnRemove" class="btn btn-default btn-block">Clear All</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class ="col-lg-7">
+               <div id="mapDiv"></div>
+            </div>
+         </div>
+         <br></br>
+		<!-- END OF MAP ROW ------------------------------------------------------------------->
+				
+            <!--</div>-->
+            <!--<div class="row">
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Logins per week</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="shieldui-chart2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Budget</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="shieldui-chart3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Purchases</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="shieldui-chart4"></div>
+                        </div>
+                    </div>
+                </div>-->
+        </div>
+		
+		
+    </div>
+    <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!--
+        This section initializes the chart widgets and a grid component, 
+        which visualize records and allow sorting and paging. 
+        For more information visit: 
+        http://www.shieldui.com/documentation/javascript.chart/getting.started
+        http://www.shieldui.com/documentation/grid/javascript/getting.started
+        http://www.shieldui.com/documentation/datasource/javascript/getting.started
+    -->
+    
+   <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+			aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog" style="width:25%">
+				<div class="modal-content">
+				
+				
+			<input type="hidden" name="actionName" id="actionName2" value="" />
+			<input	type="hidden" name="classId" id="classId2" value="" />
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">X</button>
+						<h4 class="modal-title" id="myModalLabel">Event Analysis?</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+						
+			<input	type="hidden" name="internshipID" id="internshipID" value="" />
+							<label for="confirm">Please select the hash tag for the event </label>
+							<label for="eventName" id="eventName" ></label> <label> to start analysis?</label> 
+							       <input type="text" name="tweetquery" id="tweetquery"/>
+                                                </div>
+						
+
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+						<!-- <button type="button" class="btn btn-primary" onclick="signUpFunc();">Signup</button> -->
+						<button type="button" name="startAnalysis" id="startAnalysis" class="btn  btn-danger" >
+						Start Analysis
+						</button>
+						
+
+
+					</div>
+			
+				</div>
+			</div>
+		</div>
+		
+		<div style='display:none'>
+		
+			
+			<section>
+				<table id='columns' width='90%' style='font-size: 75%; border: 1; display: none'>
+					<thead><tr><td width='5%'></td><td max-width='20%'>column</td><td min-width='25%'>type</td><td width='50%'>twitter tag</td></tr></thead>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgId'></input></td><td>VARCHAR(128)</td><td>message.id</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgType'></input></td><td>VARCHAR(128)</td><td>message.verb</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgPostedTime'></input></td><td>TIMESTAMP</td><td>message.postedTime</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgBody'></input></td><td>VARCHAR(2048)</td><td>message.body</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgHashtags'></input></td><td>VARCHAR(2048)</td><td>message.twitter_entities.hashtags</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgCoordType'></input></td><td>VARCHAR(128)</td><td>message.gnip.profileLocations.geo.type</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='msgCoordinates'></input></td><td>VARCHAR(2048)</td><td>message.gnip.profileLocations.geo.coordinates</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorCountry'></input></td><td>VARCHAR(128)</td><td>cde.author.location.country</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorState'></input></td><td>VARCHAR(128)</td><td>cde.author.location.state</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorCity'></input></td><td>VARCHAR(128)</td><td>cde.author.location.city</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaAuthorGender'></input></td><td>VARCHAR(128)</td><td>cde.author.gender</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='smaSentiment'></input></td><td>VARCHAR(128)</td><td>cde.content.sentiment.polarity</td></tr>
+<!--					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%' onkeyup='checkColumns()' value='generatorDisplayName'></input></td><td>VARCHAR(128)</td><td>message.generator.displayName</td></tr>-->
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userId'></input></td><td>VARCHAR(128)</td><td>message.actor.id</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userDisplayName'></input></td><td>VARCHAR(128)</td><td>message.actor.displayName</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userPreferredUsername'></input></td><td>VARCHAR(128)</td><td>message.actor.preferredUsername</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userLink'></input></td><td>VARCHAR(256)</td><td>message.actor.links.href</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userLocation' checked></input></td><td>VARCHAR(128)</td><td>message.actor.location.displayName</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()'></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userUtcOffset'></input></td><td>VARCHAR(128)</td><td>message.actor.utcOffset</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userLanguage'></input></td><td>VARCHAR(128)</td><td>message.actor.languages</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userFollowersCount'></input></td><td>INTEGER</td><td>message.actor.followersCount</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userFriendsCount'></input></td><td>INTEGER</td><td>message.actor.friendsCount</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userListedCount'></input></td><td>INTEGER</td><td>message.actor.listedCount</td></tr>
+					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%; max-width: 75%;' onkeyup='checkColumns()' value='userStatusesCount'></input></td><td>INTEGER</td><td>message.actor.statusesCount</td></tr>
+<!--					<tr><td><input type='checkbox' onchange='checkColumns()' checked></input></td><td><input type='text' style='font-size: 75%' onkeyup='checkColumns()' value='userVerified'></input></td><td>VARCHAR(5)</td><td>message.actor.verified</td></tr>-->
+				</table>
+			</section>
+			</div>
+    <style>
+        .color1 {
+            background-color: #6495ed;
+        }
+        .gmnoprint img {
+            max-width: none;
+        }
+        .panel:hover {
+            background-color: rgb(237, 245, 252);
+        }
+        .map {
+            min-width: 800px;
+            min-height: 470px;
+            width: 100%;
+            height: 100%;
+        }
+        img {
+            max-width: 110%;
+            height: auto;
+        }
+        .clearfix {
+            clear: both;
+        }
+        .rowcolor {
+            background-color: #CCCCCC;
+        }
+        .padall {
+            padding: 10px;
+        }
+        .padbig {
+            padding: 20px;
+        }
+        .icon {
+            font-size: 23px;
+            color: #197BB5;
+        }
+        .slide1,
+        .slide2,
+        .slide3 {
+            min-height: 620px;
+            background-size: cover;
+            background-position: center center;
+        }
+        .slide1 {
+            background-image: url(charlotte.jpg);
+        }
+        .slide2 {
+            background-image: url(newyork.jpg);
+        }
+        .slide3 {
+            background-image: url(los-angeles.jpg);
+        }
+        /* Carousel Fade Effect */
+        
+        .carousel.carousel-fade .item {
+            -webkit-transition: opacity 1s linear;
+            -moz-transition: opacity 1s linear;
+            -ms-transition: opacity 1s linear;
+            -o-transition: opacity 1s linear;
+            transition: opacity 1s linear;
+            opacity: .5;
+        }
+        .carousel.carousel-fade .active.item {
+            opacity: 1;
+        }
+        .carousel.carousel-fade .active.left,
+        .carousel.carousel-fade .active.right {
+            left: 0;
+            z-index: 2;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        .carousel-overlay {
+            position: absolute;
+            bottom: 100px;
+            right: 0;
+            left: 0;
+        }
+		
+		<!-- Map -->
+      <style>
+         html, body, #mapDiv {
+         height: 100%;
+         width: 100%;
+         }
+         @media (max-width: 600px) {
+         .panel-fixed {
+         width: 250px;
+         }
+         }
+      </style>
+    </style>
+
+  <!--<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+        var latitudes = [38.885516, 38.898537, 38.8507126, 38.84753];
+        var longitudes = [-77.09327200000001, -77.13208299999997, -77.09903600000001, -77.06577290000001];
+
+        function init_map(index) {
+            var myLocation = new google.maps.LatLng(latitudes[index], longitudes[index]);
+            var mapOptions = {
+                center: myLocation,
+                zoom: 16
+            };
+            var marker = new google.maps.Marker({
+                position: myLocation,
+                title: "Property Location"
+            });
+            var map = new google.maps.Map(document.getElementById("map"),
+                mapOptions);
+            marker.setMap(map);
+        }
+
+        init_map(0);
+    </script>-->
+	
+	<script>
+         require(["esri/map",
+             "./src/geojsonlayer.js",
+             "esri/renderers/SimpleRenderer",
+             "dojo/on",
+             "dojo/query",
+             "dojo/dom",
+             "dojo/domReady!"],
+           function (Map, GeoJsonLayer, SimpleRenderer, on, query, dom) {
+             // Create map
+             var map = new Map("mapDiv", {
+                 basemap: "gray",
+                 center: [-122.5, 45.5],
+                 zoom: 5
+             });
+             map.infoWindow.domNode.className += " light";
+             map.on("load", function () {
+                 addGeoJsonLayer("./data/sample1.json");
+             });
+             function selectGeoJsonData(e) {
+                 var url;
+                 // Get the user input
+                 if (e.target.nodeName === "SELECT") {
+                     url = dom.byId("geoJsonUrl").value = e.target.options[e.target.selectedIndex].value;
+                 } else {
+                     url = dom.byId("geoJsonUrl").value;
+                 }
+                 // Add the layer
+                 addGeoJsonLayer(url);
+             }
+             function addGeoJsonLayer(url) {
+                 // Create the layer
+                 var geoJsonLayer = new GeoJsonLayer({
+                     url: url // ./data/dc-schools.json
+                 });
+                 //Optional SimpleRenderer if you don't want a random symbol and color
+                  /*var simpleJson = {
+                      "type": "simple",
+                      "label": "",
+                      "description": "",
+                      "symbol": {
+                          "color": [210,105,30,191],
+                          "size": 10,
+                          "angle": 0,
+                          "xoffset": 0,
+                          "yoffset": 0,
+                          "type": "esriSLS" // esriSMS, esriSLS
+                      }
+                  };
+                  geoJsonLayer.renderer = new SimpleRenderer(simpleJson);*/
+                 // Zoom to layer
+                 geoJsonLayer.on("update-end", function (e) {
+                     map.setExtent(e.target.extent.expand(1.2));
+                 });
+                 // Add to map
+                 map.addLayer(geoJsonLayer);
+             }
+             function removeAllLayers() {
+                 var i, lyr, ids = map.graphicsLayerIds;
+                 for (i = ids.length -1; i > -1; i--) {
+                     lyr = map.getLayer(ids[i]);
+                     map.removeLayer(lyr);
+                 }
+                 map.infoWindow.hide();
+             }
+             // Wire UI events
+             on(dom.byId("selGeoJson"), "change", selectGeoJsonData);
+             on(dom.byId("btnAdd"), "click", selectGeoJsonData);
+             on(dom.byId("btnRemove"), "click", removeAllLayers);
+             // Toggle panel
+             on(query(".panel-heading")[0], "click", function () {
+                 if (query(".glyphicon.glyphicon-chevron-up")[0]) {
+                     query(".glyphicon").replaceClass("glyphicon-chevron-down", "glyphicon-chevron-up");
+                     query(".panel-body.collapse").removeClass("in");
+                 } else {
+                     query(".glyphicon").replaceClass("glyphicon-chevron-up", "glyphicon-chevron-down");
+                     query(".panel-body.collapse").addClass("in");
+                 }
+             });
+         });
+      </script>
+
+
+    
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$("#tableCheck").dataTable({
+	    sScrollY: '400px'
+	});
+ 
+    $('#tableCheck').on( 'click', 'tr', function () {
+    	 var name = $(this).data('name');
+    	
+    	 $(".modal-body #eventName").text( name );
+    }
+    );
+    $('#searchButton').click(function(){
+ 	
+    waitingDialog.show('Please wait....');
+ 	getEvents();
+ 	waitingDialog.hide();
+   }
+   
+   );
+    
+    $('#startAnalysis').click(function(){
+     	
+        waitingDialog.show('Please wait....');
+        startAnalysis();
+     	waitingDialog.hide();
+       }
+       
+       );
+    
+    });
+</script>
+<div class="modal"><!-- Place at bottom of page --></div>
+</body>
+
+</html>
